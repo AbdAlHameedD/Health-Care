@@ -1,0 +1,44 @@
+﻿@model Health_Care_V1._2.Models.AccountPhoneNumber
+
+@{
+    if (ViewBag.Permission == "ADMIN")
+    {
+        Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    }
+    else if (ViewBag.Permission == "DOCTOR")
+    {
+        Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+    }
+}
+
+<h1 class="view-header">Details</h1>
+
+<div>
+    <h6>Account Id: @ViewBag.AccountId1</h6>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @{
+                decimal phoneNumber = Math.Round(Model.PhoneNumber, 0);
+            }
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @phoneNumber
+        </dd>
+        <dt class = "col-sm-2">
+            Full Name
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.AccountName
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" asp-route-accountName="@ViewBag.AccountName">Edit</a> |
+    <a asp-action="Index" asp-route-id="@Model.AccountId" asp-route-accountName="@ViewBag.AccountName">Back to List</a>
+</div>

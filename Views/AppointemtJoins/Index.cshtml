@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.AppointemtJoin>
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Appointments</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Doctor Name
+            </th>
+            <th>
+                Patient Name
+            </th>
+            <th>
+                Clinic Name
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                From Date
+            </th>
+            <th>
+                To Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Math.Round(item.Id, 0)
+            </td>
+            <td>
+                @item.DoctorFname @item.DoctorLname
+            </td>
+            <td>
+                @item.PatientFname @item.PatientLname
+            </td>
+            <td>
+                @item.ClinicName
+            </td>
+            <td>
+                @{
+                    string circleColor = "#000000";
+                    switch (item.Status)
+                    {
+                        case "Waiting":
+                            circleColor = "#FFD133";
+                            break;
+
+                        case "Accepted":
+                            circleColor = "#1E7F04";
+                            break;
+
+                        case "Completed":
+                            circleColor = "#ffffff";
+                            break;
+
+                        case "Rejected":
+                            circleColor = "#C80D0D";
+                            break;
+
+                        case "Cancelled":
+                            circleColor = "#000000";
+                            break;
+                    }
+                }
+                        
+                <span style="color: @circleColor;">&#9679;</span>
+                @item.Status
+            </td>
+            <td>
+                @item.FromDate
+            </td>
+            <td>
+                @item.ToDate
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

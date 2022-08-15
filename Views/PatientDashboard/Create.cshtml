@@ -1,0 +1,85 @@
+﻿@model Health_Care_V1._2.Models.Appointment
+
+@{
+    Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Reserve a New Appointment</h1>
+
+<h6>Appointment</h6>
+<hr />
+<div class="row justify-content-between">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Doctor Name</label>
+                <select asp-for="DoctorId" class ="form-control" asp-items="ViewBag.DoctorId1" required></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FromDate" class="control-label"></label>
+                @{
+                    DateTime minDateTime = DateTime.Now;
+                    string minValue = $"{minDateTime.Year}-";
+
+                    minValue += (minDateTime.Month < 10) ? $"0{minDateTime.Month}-" : $"{minDateTime.Month}-";
+                    minValue += (minDateTime.Day < 10) ? $"0{minDateTime.Day}T" : $"{minDateTime.Day}T";
+                    minValue += (minDateTime.Hour < 10) ? $"0{minDateTime.Hour}:" : $"{ minDateTime.Hour}:";
+                    minValue += (minDateTime.Minute < 10) ? $"0{minDateTime.Minute}" : $"{ minDateTime.Minute}";
+
+                    DateTime maxDateTime = minDateTime.AddMonths(5);
+                    string maxValue = $"{minDateTime.Year}-";
+
+                    maxValue += (maxDateTime.Month < 10) ? $"0{maxDateTime.Month}-" :  $"{maxDateTime.Month}-";
+                    maxValue += (maxDateTime.Day < 10) ? $"0{maxDateTime.Day}T" : $"{maxDateTime.Day}T";
+                    maxValue += (maxDateTime.Hour < 10) ? $"0{maxDateTime.Hour}:" : $"{ maxDateTime.Hour}:";
+                    maxValue += (maxDateTime.Minute < 10) ? $"0{maxDateTime.Minute}" : $"{ maxDateTime.Minute}";
+                }
+                <input asp-for="FromDate" class="form-control" required
+                    value="@minValue" min="@minValue" max="@maxValue" id="fromDate" />
+                <span class="text-danger">@ViewBag.AppointmentExists</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    @if (!(ViewBag.Confirmed is null))
+    {
+        <div class="col-md-5 appointment-confirmed-container">
+
+        <h2 style="text-transform: uppercase; margin-bottom: 35px;">Confirmed Appointment</h2>
+
+        <div class="container bcontent">
+            <dl class="row">
+                <!-- Clinic Name -->
+                <dt class="col-sm-3">Clinic Name</dt>
+                <dd class="col-sm-9">@ViewBag.ClinicName</dd>
+
+                <!-- Doctor Name -->
+                <dt class="col-sm-3">Doctor Name</dt>
+                <dd class="col-sm-9">@ViewBag.DoctorName</dd>
+
+                <!-- From -->
+                <dt class="col-sm-3">From</dt>
+                <dd class="col-sm-9">@ViewBag.FromDate</dd>
+
+                <!-- To -->
+                <dt class="col-sm-3 text-truncate">To</dt>
+                <dd class="col-sm-9">@ViewBag.ToDate</dd>
+            </dl>
+
+            <div class="justify-content-center row">
+                <button onclick="location.href='@Url.Action("AppointmentConfirmed")'" 
+                    type="button" class="btn btn-success">Confirmed</button>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

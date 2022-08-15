@@ -1,0 +1,78 @@
+﻿@model List<Health_Care_V1._2.Models.EmployeeJoin>
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<h1 class="view-header">Employees Of @ViewBag.ClinicName</h1>
+
+<p>
+    <a asp-action="Create" asp-route-clinicId="@ViewBag.ClinicId" asp-route-clinicName="@ViewBag.ClinicName">Add New Employee &plus;</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Account ID
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Salary
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.AccountId
+            </td>
+            <td>
+                @item.Fname
+            </td>
+            <td>
+                @item.Mname
+            </td>
+            <td>
+                @item.Lname
+            </td>
+                @if(item.Gender == "M")
+                {
+                    <td>Male</td>
+                }
+                else
+                {
+                    <td>Female</td>
+                }
+            <td>
+                @item.Salary
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeId" asp-route-employeeName="@item.Fname @item.Mname @item.Lname" asp-route-clinicId1="@ViewBag.ClinicId"
+                        asp-route-clinicName="@ViewBag.ClinicName" asp-route-accountId="@item.AccountId">
+                    <img src="~/images/edit.png" alt="Edit" title="Edit" width="22" height="22" />
+                </a> |
+                <a asp-action="Details" asp-route-id="@item.EmployeeId" asp-route-clinicName="@ViewBag.ClinicName" asp-route-fullName="@item.Fname @item.Mname @item.Lname"
+                        asp-route-accountId="@item.AccountId" asp-route-gender="@item.Gender" asp-route-clinicId="@ViewBag.ClinicId" >
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a> |
+                <a asp-action="Delete" asp-route-id="@item.EmployeeId" asp-route-clinicName="@ViewBag.ClinicName" asp-route-fullName="@item.Fname @item.Mname @item.Lname" 
+                       asp-route-accountId="@item.AccountId" asp-route-gender="@item.Gender" asp-route-clinicId="@ViewBag.ClinicId" >
+                    <img src="~/images/delete.png" alt="Delete" title="Delete" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

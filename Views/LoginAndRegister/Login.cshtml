@@ -1,0 +1,54 @@
+﻿@model Health_Care_V1._2.Models.Account
+
+@{
+    ViewData["Title"] = "Login | Health Care";
+    Layout = "_LoginAndRegisterLayout";
+
+	var mainInfo = ViewBag.mainTable;
+}
+
+        <div class="content" style="background-image: url('../../images/login-and-register-backgorunds/@mainInfo.LoginBackgroundImage'); background-repeat: no-repeat;">
+            <div class="container" style="padding-bottom:100px;">
+                <div class="row">
+                    <div class="col-md-12 contents">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 login-card" style="background-color: rgba(255, 255, 255, 0.5)">
+                                <div class="mb-4 d-flex justify-content-center">
+                                    <h3 style="font-size: 2.75rem">Sign In</h3>
+                                </div>
+                                <span style="color: red; font-size: 0.7rem; display: block; margin:auto;">@ViewBag.Status</span>
+                                <form action="#" method="post">
+                                    <!-- Username -->
+                                    <div class="form-group first">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" minlength=8 maxlength=15>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="form-group last mb-4">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" minlength=10 maxlength=20>
+                                    </div>
+                                    
+                                    <!-- Remember Me -->
+                                    <div class="d-flex mb-5 align-items-center">
+                                        <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                                            <input type="checkbox" checked="checked"/>
+                                            <div class="control__indicator"></div>
+                                        </label>
+                                        <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
+                                      </div>
+
+                                      <input type="submit" value="Log In" class="btn btn-block btn-primary">
+
+                                      <div style="margin-top: 20px;" class="d-flex justify-content-center">
+                                          <span style="margin-right: 10px;">Don't have an account?</span>
+                                          <a id="signUp" href="Register">Sign Up Now</a>
+                                      </div>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

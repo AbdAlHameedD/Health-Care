@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        
+        <!-- Style -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/register.css">
+
+        <title>Sign Up | Health Care</title>
+    </head>
+
+    <body>
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 contents">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 login-card">
+                                <div class="mb-4 d-flex justify-content-center">
+                                    <h3 style="font-size: 2.75rem">Sign Up</h3>
+                                </div>
+
+                                <form action="#" method="post">
+                
+                                    <!-- First Row -->
+                                    <div class="row">
+                                        <!-- Username -->
+                                        <div class="col-md-4">
+                                            <div class="form-group first">
+                                                <label for="username">
+                                                    Username
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="username" required maxlength="15">
+                                            </div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label for="password">
+                                                    Password
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="password" class="form-control" id="password" required maxlength="20">
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Email -->
+                                        <div class="col-md-4">
+                                            <div class="form-group first">
+                                                <label for="email">
+                                                    Email
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="email" class="form-control" id="email" required maxLength="255">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Second Row -->
+                                    <div class="row">
+                                        <!-- First Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label for="firstName">
+                                                    First Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="firstName" required required maxlength="15">
+                                            </div>
+                                        </div>
+
+                                        <!-- Middle Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label for="middleName">
+                                                    Middle Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="middleName" required required maxlength="15">
+                                            </div>
+                                        </div>
+
+                                        <!-- Last Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label for="lastName">
+                                                    Last Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" id="lastName" required required maxlength="15">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Third Row -->
+                                    <div class="row">
+                                        <!-- Gender Label -->
+                                        <div class="col-md-2">
+                                            <label class="radioLabel col-md-12">
+                                                Gender
+                                                <span style="color:red;">*</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <!-- Male -->
+                                        <div class="col-md-2">
+                                            <input type="radio" class="btn-check radio" name="gender" id="male" autocomplete="off" value="M"
+                                                required onclick="genderChangeBackgroundColor('male')"/>
+
+                                            <label class="btn btn-secondary male col-md-12" for="male" id="maleLabel">Male</label>
+                                        </div>
+
+                                        <!-- Female -->
+                                        <div class="col-md-2">
+                                            <input type="radio" class="btn-check radio" name="gender" id="female" value="F"
+                                                autocomplete="off" onclick="genderChangeBackgroundColor('female')"/>
+
+                                            <label class="btn btn-secondary female col-md-12" for="female" id="femaleLabel">Female</label>
+                                        </div>
+
+                                        <div class="col-md-6 d-flex" style="margin: 20px 0;">
+                                            <!-- Birth Date Label -->
+                                            <div class="col-md-6">
+                                                <label class="radioLabel col-md-12">
+                                                    Birth Date
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="input-group date col-md-6" data-provide="datepicker">
+                                                <input type="date" class="birthDate form-control col-md-12" required>
+                                            </div>
+                                        </div>
+                                    </div>
+              
+                                    <div class="d-flex mb-5 align-items-center">
+                                        <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                                        <input type="checkbox" checked="checked"/>
+                                        <div class="control__indicator"></div>
+                                        </label>
+                                    </div>
+
+                                    <input type="submit" value="Sign Up" class="btn btn-block btn-primary col-md-4" style="margin: auto;" onclick="test()">
+
+                                    <div style="margin-top: 20px;" class="d-flex justify-content-center">
+                                        <span style="margin-right: 10px;">Already have an account?</span>
+                                        <a id="signUp" href="login.html">Sign In</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scripts -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/register.js"></script>
+    </body>
+</html>

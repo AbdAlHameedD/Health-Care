@@ -1,0 +1,33 @@
+﻿@model Health_Care_V1._2.Models.ClinicPhoneNumber
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Details</h1>
+
+<div>
+    <h6>Clinic ID: @ViewBag.ClinicId</h6>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                decimal phoneNumber = Math.Round(Model.PhoneNumber, 0);
+            }
+            @phoneNumber
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Clinic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Clinic.ClinicName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index" asp-route-clinicId="@Model.ClinicId" asp-route-clinicName="@ViewBag.clinicName">Back to List</a>
+</div>

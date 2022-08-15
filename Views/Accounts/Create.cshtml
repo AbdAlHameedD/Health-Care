@@ -1,0 +1,127 @@
+﻿    @model Health_Care_V1._2.Models.Account
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+    <h1 class="view-header">Create</h1>
+
+    <h6>New Account</h6>
+    <hr />
+    <div class="row" style="margin-right: 0;">
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data" id="parent">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" required maxlength=15 minlength=8 />
+                    <span asp-validation-for="Username" class="text-danger">@ViewBag.UsernameErrorMsg @ViewBag.UsernameRegex</span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" required maxlength=20 minlength=10 />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" required maxlength=255 />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fname" class="control-label"></label>
+                    <input asp-for="Fname" class="form-control" required maxlength=15 minlength=3 />
+                    <span asp-validation-for="Fname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mname" class="control-label"></label>
+                    <input asp-for="Mname" class="form-control" required maxlength=15 minlength=3 />
+                    <span asp-validation-for="Mname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lname" class="control-label"></label>
+                    <input asp-for="Lname" class="form-control" required maxlength=15 minlength=3 />
+                    <span asp-validation-for="Lname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <select asp-for="Gender" class="form-control" required>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bod" class="control-label"></label>
+                    <input asp-for="Bod" type="date" class="form-control" required />
+                    <span asp-validation-for="Bod" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Status" class="control-label"></label>
+                    <select asp-for="Status" class="form-control" required >
+                      <option value="OK">OK</option>
+                      <option value="BLOCK">BLOCK</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Permission" class="control-label"></label>
+                    <select asp-for="Permission" class="form-control" required id="permission" onchange="changeAttr(this)" >
+                      <option value="USER">USER</option>
+                      <option value="DOCTOR">DOCTOR</option>
+                      <option value="ADMIN">ADMIN</option>
+                    </select>
+                    <span asp-validation-for="Permission" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Clinic</label>
+                    <select class="form-control" asp-items="ViewBag.ClinicsId1" id="clinics" disabled name="clinicId"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Salary</label>
+                    <input class="form-control" type="number" min=480 id="salary" disabled name="salary" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreationDate" class="control-label"></label>
+                    <input asp-for="CreationDate" class="form-control" required />
+                    <span asp-validation-for="CreationDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageFile" class="control-label"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+<script>
+    function changeAttr(element) 
+    {
+        const selectList = document.getElementById('clinics');
+        const salary = document.getElementById('salary');
+
+        if (element.value == "DOCTOR"){
+            selectList.required = true;
+            selectList.disabled = false;
+
+            salary.required = true;
+            salary.disabled = false;
+            salary.value = 480;
+        }
+        else 
+        {
+            selectList.required = false;
+            selectList.disabled = true;
+
+            salary.required = false;
+            salary.disabled = true;
+        }
+    }
+</script>

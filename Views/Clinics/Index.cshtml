@@ -1,0 +1,110 @@
+﻿@model List<Health_Care_V1._2.Controllers.Clinics>
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Clinics</h1>
+
+<p>
+    <a asp-action="Create" title="Add New Clinic">
+        Create New Clinic &plus;
+    </a>
+</p>
+<div class="table-responsive">
+<table class="table to-fixed">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Clinic Name
+            </th>
+            <th>
+                Addition Date
+            </th>
+            <th>
+                Addresses
+            </th>
+            <th>
+                Phone Numbers
+            </th>
+            <th>
+                Logo
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-striped">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.Clinic.Id
+            </td>
+            <td>
+                @item.Clinic.ClinicName
+            </td>
+            <td>
+                @item.Clinic.AdditionDate
+            </td>
+            <td>
+                <ol type="1" style="padding-left: 16px;">
+                        @foreach(var address in item.ClinicAddresses)
+                        {
+                            var fulladdress = address.Country + ", " + address.City + ", " + address.Street;
+                            if (!(address.BuildingNumber is null))
+                            {
+                                fulladdress += ", " + address.BuildingNumber;
+                            }
+                                
+                            <li>@fulladdress</li>
+                        }
+                        @if (item.ClinicAddresses.Count == 0) 
+                        {
+                            <p>No Data</p>
+                        }
+                </ol>
+            </td>
+
+            <td>
+                <ol type="1" style="padding-left: 16px;">
+                        @foreach(var phoneNumber in item.ClinicPhoneNumbers)
+                        {
+                            <li>@phoneNumber.PhoneNumber</li>
+                        }
+                        @if (item.ClinicPhoneNumbers.Count == 0) 
+                        {
+                            <li>No Data</li>
+                        }
+                </ol>
+            </td>
+
+            <td>
+                <img src="~/images/clinics-logo/@item.Clinic.ClinicLogo"  width="64" height="64" />
+            </td>
+
+            <td class="col-md-1">
+                <a class="col-md-4 recordLink" asp-action="Edit" asp-route-id="@item.Clinic.Id">
+                    <img src="~/images/edit.png" alt="Edit" title="Edit" width="22" height="22" />
+                </a> |
+                <a class="col-md-4 recordLink" asp-action="Details" asp-route-id="@item.Clinic.Id">
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a> |
+                <a class="col-md-4 recordLink" asp-action="Delete" asp-route-id="@item.Clinic.Id">
+                    <img src="~/images/delete.png" alt="Delete" title="Delete" width="22" height="22" />
+                </a> |
+                <a class="col-md-4 recordLink" asp-controller="ClinicAddresses" asp-action="Index" asp-route-clinicId="@item.Clinic.Id" asp-route-clinicName="@item.Clinic.ClinicName">
+                    <img src="~/images/edit-addresses.png" alt="Edit Addresses" title="Edit Addresses" width="22" height="22" />
+                </a> |
+                <a class="col-md-4 recordLink" asp-controller="ClinicPhoneNumbers" asp-action="Index" asp-route-clinicId="@item.Clinic.Id" asp-route-clinicName="@item.Clinic.ClinicName" >
+                    <img src="~/images/edit-phone-numbers.png" alt="Edit Phone Numbers" title="Edit Phone Numbers" width="22" height="22" />
+                </a> |
+                <a class="col-md-4 recordLink" asp-controller="Employees" asp-action="Index" asp-route-clinicId="@item.Clinic.Id" asp-route-clinicName="@item.Clinic.ClinicName" >
+                    <img src="~/images/add-doctor.png" alt="Add Doctor" title="Add Doctor To Clinic" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

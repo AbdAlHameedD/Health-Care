@@ -1,0 +1,140 @@
+﻿@model Health_Care_V1._2.Models.AppointemtJoin
+
+@{
+    Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Details</h1>
+
+<div>
+    <h6>Appointment</h6>
+    <hr />
+    
+    <div style="margin-left: 10px; margin-right: 10px; margin-bottom: 25px;">
+        <!-- Appointment Information -->
+        <table class="table-responsive col-md-12">
+            <!-- Caption -->
+            <caption>Appointment Information</caption>
+
+            <!-- Headers -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                    <th>Creation Date</th>
+                </tr>
+            </thead>
+
+            <!-- Data -->
+            <tbody>
+                 <tr>
+                     <td>
+                         @Model.Id
+                     </td>
+                     <td>
+                         @Model.FromDate
+                     </td>
+                     <td>
+                         @Model.ToDate
+                     </td>
+                     <td>
+                        @{
+                            string circleColor = "#000000";
+                            switch (@Model.Status)
+                            {
+                                case "Waiting":
+                                    circleColor = "#FFD133";
+                                    break;
+
+                                case "Accepted":
+                                    circleColor = "#1E7F04";
+                                    break;
+
+                                case "Completed":
+                                    circleColor = "#ffffff";
+                                    break;
+
+                                case "Rejected":
+                                    circleColor = "#C80D0D";
+                                    break;
+
+                                case "Cancelled":
+                                    circleColor = "#000000";
+                                    break;
+                            }
+                        }
+                        
+                        <span style="color: @circleColor;">&#9679;</span>
+                         @Model.Status
+                     </td>
+                     <td>
+                         @Model.CreationDate
+                     </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+
+        <!-- Doctor Information -->
+        <table class="table-responsive col-md-12">
+            <!-- Caption -->
+            <caption>Doctor Information</caption>
+
+            <!-- Headers -->
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Doctor Email</th>
+                    <th>Profile Picture</th>
+                </tr>
+            </thead>
+
+            <!-- Data -->
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.DoctorFname @Model.DoctorMname @Model.DoctorLname
+                    </td>
+                    <td>
+                        @Model.DoctorEmail
+                    </td>
+                    <td>
+                        <img src="~/images/profile-pictures/@Model.DoctorProfilePicture" alt="Doctor Profile Picture" width="64" height="64" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Clinic Information -->
+        <table class="table-responsive col-md-12">
+            <!-- Caption -->
+            <caption>Clinic Information</caption>
+
+            <!-- Headers -->
+            <thead>
+                <tr>
+                    <th>Clinic Name</th>
+                    <th>Clinic Logo </th>
+                </tr>
+            </thead>
+
+            <!-- Data -->
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.ClinicName
+                    </td>
+                    <td>
+                        <img src="~/images/clinics-logo/@Model.ClinicLogo" alt="Clinic Logo" width="64" height="64" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Appointments" asp-route-accountId="@Model.PatientAccountId">Back to List</a>
+</div>

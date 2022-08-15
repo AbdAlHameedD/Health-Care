@@ -1,0 +1,439 @@
+﻿@using System.Web
+
+@{
+	ViewData["Title"] = "Home | Health Care";
+	
+	var mainInfo = ViewBag.MainTable;
+}
+
+<!-- Home Section -->
+<section class="hero-wrap js-fullheight" style="background-image: url('../../images/@mainInfo.HomeBackgroundImage');" data-section="home" data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+			<div class="col-md-6 pt-5 ftco-animate">
+				<div class="mt-5">
+
+					<span class="subheading">
+						@mainInfo.HomeGreet
+					</span>
+					<h1 class="mb-4">
+						@Html.Raw(HttpUtility.HtmlDecode(@mainInfo.HomeTitle))
+					</h1>
+					<p class="mb-4">
+						@mainInfo.HomeContent
+					</p>
+					<p>
+						@if(ViewBag.Permission == "PATIENT")
+						{
+							<a href="@Url.Action("Index", "PatientDashboard")" class="btn btn-primary py-3 px-4">@mainInfo.HomeButton</a>
+						}
+						else if (!(ViewBag.IsLogged))
+						{
+							<a href="@Url.Action("Login", "LoginAndRegister")" class="btn btn-primary py-3 px-4">@mainInfo.HomeButton</a>
+						}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- About Section -->
+<!-- About Part #1 -->
+<section class="ftco-counter img ftco-section ftco-no-pt ftco-no-pb" id="about-section">
+
+	<div class="container">
+		<div class="row d-flex">
+			<div class="col-md-6 col-lg-5 d-flex">
+				<div class="img d-flex align-self-stretch align-items-center" style="background-image:url(../../images/@mainInfo.AboutImage);"></div>
+			</div>
+			<div class="col-md-6 col-lg-7 pl-lg-5 py-md-5">
+					<div class="py-md-5">
+						<div class="row justify-content-start pb-3">
+					<div class="col-md-12 heading-section ftco-animate p-4 p-lg-5">
+						<h2 class="mb-4">
+							@Html.Raw(HttpUtility.HtmlDecode(mainInfo.AboutTitle01))
+						</h2>
+						<p>@mainInfo.AboutContent01</p>
+						<p>
+							@if(ViewBag.Permission == "PATIENT")
+							{
+								<a href="@Url.Action("Index", "PatientDashboard")" class="btn btn-primary py-3 px-4">@mainInfo.HomeButton</a>
+							}
+							else if (!(ViewBag.IsLogged))
+							{
+								<a href="@Url.Action("Login", "LoginAndRegister")" class="btn btn-primary py-3 px-4">@mainInfo.HomeButton</a>
+							}
+							<a href="#contact-section" class="btn btn-secondary py-3 px-4">@mainInfo.AboutButton02</a>
+						</p>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- About Part #2 (Our Services) -->
+<section class="ftco-section ftco-no-pt ftco-no-pb ftco-services-2 bg-light">
+
+	<div class="container">
+		<div class="row d-flex">
+			<div class="col-md-12 py-5">
+				<div class="py-lg-5">
+					<div class="row justify-content-center pb-5">
+						<div class="col-md-12 heading-section ftco-animate">
+							<h2 class="mb-3">@mainInfo.AboutTitle02</h2>
+						</div>
+					</div>
+
+					<div class="row">
+						<!-- Service Cards Here -->
+						@foreach (var service in ViewBag.Services)
+						{
+							<div class="col-md-5 d-flex align-self-stretch ftco-animate">
+								<div class="media block-6 services d-flex">
+									
+									<div class="icon justify-content-center align-items-center d-flex">
+										<img src="~/images/services-icons/@service.Icon" />
+									</div>
+	
+									<div class="media-body pl-md-4">
+										<h3 class="heading mb-3">@service.Title</h3>
+										<p>@service.Description</p>
+									</div>
+								</div>    
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- About Part #3 -->
+<section class="ftco-intro img" style="background-image: url(../../images/@mainInfo.AboutBackgroundImage);">
+
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-9 text-center">
+				<h2>@mainInfo.AboutTitle03</h2>
+				<p>@mainInfo.AboutContent02</p>
+				<p class="mb-0">
+					@if (!(ViewBag.IsLogged))
+					{
+						<a href="@Url.Action("Register", "LoginAndRegister")" class="btn btn-white px-4 py-3">@mainInfo.AboutButton03</a>
+					}
+					
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Department Section -->
+<section class="ftco-section ftco-no-pt ftco-no-pb" id="department-section">
+
+	<div class="container-fluid px-0">
+		<div class="row no-gutters">
+			<div class="col-md-4 d-flex">
+				<div class="img img-dept align-self-stretch" style="background-image: url(../../images/@mainInfo.DepartmentImage);"></div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="row no-gutters">
+					
+
+					<!-- Department Cards Here -->
+					@{
+						int counter = 0;
+					}
+					@foreach (var department in ViewBag.Departments)
+					{
+						@if(counter == 0 || counter%3 == 0)
+						{
+							@:<div class="col-md-4">
+						}
+
+						<div class="department-wrap p-4 ftco-animate">
+							<div class="text p-2 text-center">
+								<div class="icon">
+									<img src="~/images/departments-icons/@department.Icon" />
+								</div>
+
+								<h3>
+									<a>@department.Title</a>
+								</h3>
+								<p>@department.Description</p>
+							</div>
+						</div>
+						counter++;
+
+							
+
+						@if(counter%3 == 0)
+						{
+							@:</div>
+						}
+					}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Doctors Section -->			
+<section class="ftco-section" id="doctor-section">
+	<div class="container-fluid px-5">
+		<div class="row justify-content-center mb-5 pb-2">
+			<div class="col-md-8 text-center heading-section ftco-animate">
+				<h2 class="mb-4">@mainInfo.DoctorTitle</h2>
+				<p>@mainInfo.DoctorContent</p>
+			</div>
+		</div>	
+
+		<div class="row justify-content-around">
+
+			<!-- Doctor Cards Here -->
+			@{
+				int pointer = 0;
+			}
+			@foreach (var item in ViewBag.Accounts)
+			{
+				<div class="col-md-5 col-lg-2 ftco-animate spe-cards">
+					<div class="staff">
+						<div class="img-wrap d-flex align-items-stretch">
+							<div class="img align-self-stretch" style="background-image: url(../../images/profile-pictures/@item.ProfilePicture);"></div>
+						</div>
+						<div class="text pt-3 text-center">
+							<h3 class="mb-2">Dr. @item.Fname @item.Mname</h3>
+							<span class="position mb-2">@ViewBag.ClinicNames[@pointer++]</span>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+<!-- Clinics Section -->
+<section class="ftco-section" id="clinics-section">
+	<div class="container-fluid px-5">
+		<div class="row justify-content-center mb-5 pb-2">
+			<div class="col-md-8 text-center heading-section ftco-animate">
+				<h2 class="mb-4">@mainInfo.ClinicTitle</h2>
+				<p>@mainInfo.ClinicContent</p>
+			</div>
+		</div>	
+
+		<div class="row justify-content-around">
+		
+		<!-- Clinic Cards Here -->
+			@foreach (var item in ViewBag.Clinics)
+				{
+					<div class="col-md-5 col-lg-2 ftco-animate spe-cards">
+						<div class="staff">
+							<div class="img-wrap d-flex align-items-stretch">
+								<div class="img align-self-stretch" style="background-image: url(../../images/clinics-logo/@item.ClinicLogo);
+									background-position:center; background-size:contain;"></div>
+							</div>
+							<div class="text pt-3 text-center">
+								<h3 class="mb-2">@item.ClinicName</h3>
+							</div>
+						</div>
+					</div>
+				}
+
+		
+		</div>
+	</div>
+</section>
+
+<!-- Statistics Section -->
+<section class="ftco-facts img ftco-counter" style="background-image: url(../../images/@mainInfo.StatisticsTitle);">
+	<div class="overlay"></div>
+	
+	<div class="container">
+		<div class="row d-flex align-items-center">
+			<div class="col-md-5 heading-section heading-section-white">
+				<span class="subheading">@mainInfo.StatisticsSubtitle</span>
+				<h2 class="mb-4">@mainInfo.StatisticsTitle</h2>
+				<p class="mb-0">
+					<a href="#" class="btn btn-secondary px-4 py-3">@mainInfo.StatisticsButton</a>
+				</p>
+			</div>
+			
+			<!-- Years Experience -->
+			<div class="col-md-7">
+				<div class="row pt-4">
+					<div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+						<div class="block-18">
+							<div class="text">
+								<strong class="number" data-number="@ViewBag.YearsExperience">0</strong>
+								<span>Years of Experienced</span>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Happy Patients -->
+					<div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+						<div class="block-18">
+							<div class="text">
+								<strong class="number" data-number="@ViewBag.NumOfPatients">0</strong>
+								<span>Happy Patients</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Number Of Doctors -->
+					<div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+						<div class="block-18">
+							<div class="text">
+								<strong class="number" data-number="@ViewBag.NumOfDoctors">0</strong>
+								<span>Number of Doctors</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Number of Clinics -->
+					<div class="col-md-6 d-flex justify-content-center counter-wrap ftco-animate">
+						<div class="block-18">
+							<div class="text">
+								<strong class="number" data-number="@ViewBag.NumOfClinics">0</strong>
+								<span>Number of Cinics</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>		
+
+<!-- Testimonial Section -->
+<section class="ftco-section testimony-section img" style="margin-top: 300px; background-image: url(images/@mainInfo.TestimonialBackgroundImage);">
+	<div class="overlay"></div>
+
+	<div class="container">
+		<div class="row justify-content-center pb-3">
+			<div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+				<span class="subheading">@mainInfo.TestimonialTitle</span>
+				<h2 class="mb-4">@mainInfo.TestimonialContent</h2>
+			</div>
+		</div>
+		
+		<div class="row ftco-animate justify-content-center">
+			<div class="col-md-12">
+				<div class="carousel-testimony owl-carousel ftco-owl">
+
+					@foreach (var item in ViewBag.Testimonials)
+					{
+						<div class="item">
+							<div class="testimony-wrap text-center py-4 pb-5">
+								<div class="user-img" style="background-image: url(../../images/profile-pictures/@item.ProfilePicture)">
+									<span class="quote d-flex align-items-center justify-content-center">
+										<i class="icon-quote-left"></i>
+									</span>
+								</div>
+
+								<div class="text px-4">
+									<p class="mb-4">@item.Message</p>
+									<p class="name">@item.Fname @item.Lname</p>
+									<span class="position">Patients</span>
+								</div>
+							</div>
+						</div>
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Contact Section -->
+<section class="ftco-section contact-section" id="contact-section">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<h2 class="mb-4">@mainInfo.ContactTitle</h2>
+				<p>@mainInfo.ContactContent</p>
+			</div>
+		</div>
+		
+		<div class="row d-flex contact-info mb-5 justify-content-between">
+
+			@foreach (var item in ViewBag.ContactUsCards)
+			{
+				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
+					<div class="align-self-stretch box p-4 text-center bg-light">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<img src="~/images/contact-us-cards/@item.Icon" width="64" height="64" />
+						</div>
+
+						<h3 class="mb-4">@item.ContactTitle</h3>
+						<p>
+							<a href="@item.Link" target="_blank">@item.ContactContent</a>
+						</p>
+					</div>
+				</div>
+			}
+		</div>
+
+		<!-- Contact Form -->
+		<div class="row no-gutters block-9">
+			<div class="col-md-6 order-md-last d-flex">
+				<form action="mailto:healthCare@care.com" method="post" enctype=”multipart/form-data” class="bg-light p-5 contact-form">
+
+					<!-- Name Field -->
+					<div class="form-group">
+						@if (!(@ViewBag.Email is null))
+						{
+							<input type="text" class="form-control" value="@ViewBag.Fname @ViewBag.Mname @ViewBag.Lname" disabled style="background-color: #dfdfdf !important;">
+						}
+						else
+						{
+							<input type="text" class="form-control" placeholder="Your Name" required>
+						}
+						
+					</div>
+
+					<!-- Email Field -->
+					<div class="form-group">
+						@if (!(@ViewBag.Email is null))
+						{
+							<input type="text" class="form-control" value="@ViewBag.Email" disabled style="background-color: #dfdfdf !important;">
+						}
+						else
+						{
+							<input type="text" class="form-control" placeholder="Your Email" required>
+						}
+					</div>
+
+					<!-- Subject Field (title) -->
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Subject" required>
+					</div>
+
+					<!-- Message Field -->
+					<div class="form-group">
+						<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message" required></textarea>
+					</div>
+
+					<!-- Submit Button -->
+					<div class="form-group">
+						<input type="submit" value="Send Message" class="btn btn-secondary py-3 px-5">
+					</div>
+				</form>
+			</div>
+
+			<div class="col-md-6 d-flex">
+				<div id="map" class="bg-white"></div>
+			</div>
+		</div>
+	</div>
+</section>

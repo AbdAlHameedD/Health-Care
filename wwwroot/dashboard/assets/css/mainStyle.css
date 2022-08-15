@@ -1,0 +1,151 @@
+﻿a.recordLink {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+tbody tr:hover,
+tbody tr:nth-child(2n):hover {
+    background-color: #7b8b93f1;
+    transition: 0.3s;
+}
+
+tbody tr:hover td,
+tbody tr:nth-child(2n):hover td {
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+table tr:nth-child(2n) {
+    background-color: #ededed;
+    transition: 0.3s;
+}
+
+table tr:first-child {
+    border-top: 2px solid black;
+}
+
+table tr {
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+table th {
+    font-weight: bolder !important;
+    font-size: 1rem !important;
+}
+
+h1.view-header {
+    letter-spacing: 10px;
+    font-weight: 800;
+}
+
+span.text-danger {
+    color: red !important;
+    font-size: 0.7rem;
+    display: block;
+    margin: auto;   
+}
+
+ul.lll-1 {
+    list-style-type: none !important;
+}
+
+ul.lll-2 li {
+    list-style-type: none !important;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+table thead.inv-thead {
+    background-color: #029fc7;
+    color: #ffffff;
+}
+
+textarea.invoice-note {
+    padding: 10px;
+    resize: none;
+    font-family: "Arial Black";
+    height: 300px;
+    background-color: #fff;
+}
+
+div.appointment-confirmed-container {
+    border: solid 1px black;
+    padding: 50px;
+    margin: 20px;
+    box-shadow: 1px 1px 5px grey;
+    transition: 0.3s;
+}
+
+div.appointment-confirmed-container:hover {
+    margin-top: 15px;
+    box-shadow: 1px 1px 15px grey;
+    color: white;
+    background-color: black;
+}
+
+div.con-1 {
+    margin: 50px;
+}
+
+div.con-2 {
+    padding: 50px;
+}
+
+div.doc-card {
+    border: black solid 1px;
+    margin: 25px 0;
+    padding: 25px;
+    transition: 0.3s;
+    cursor: default;
+}
+
+div.doc-card:hover {
+    margin-top: 20px;
+    box-shadow: 1px 1px 10px grey;
+}
+
+div.doc-card:hover h5 {
+    font-size: 1.5rem;
+}
+
+div.doc-card:hover h6 {
+    font-size: 1rem;
+}
+
+div.doc-profile-pic-container {
+    margin-bottom: 25px;
+}
+
+div.doc-profile-pic-container img {
+    border: 3px solid #029fc7;
+    border-radius: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.doc-card h5 {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    transition: 0.3s;
+}
+
+div.doc-card h6 {
+    text-align: center;
+    transition: 0.3s;
+    margin-bottom: 25px;
+}
+
+div.doc-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: auto;
+}
+
+span.checked {
+    color: orange;
+}

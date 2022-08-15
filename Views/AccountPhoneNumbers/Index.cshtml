@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.AccountPhoneNumber>
+
+@{
+    if (ViewBag.Permission == "ADMIN")
+    {
+        Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    }
+    else if (ViewBag.Permission == "DOCTOR")
+    {
+        Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+    }
+}
+
+<h1 class="view-header">Account Phone Number</h1>
+<h6>Account Name: @ViewBag.AccountName</h6>
+
+<p>
+    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId1" asp-route-accountName="@ViewBag.AccountName">Add New Phone Number</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @{
+                    decimal id = Math.Round(item.Id, 0);
+                }
+                @id
+            </td>
+            <td>
+                    @{
+                        decimal phoneNumber = Math.Round(item.PhoneNumber, 0);
+                    }
+                @phoneNumber
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-accountName="@ViewBag.AccountName">
+                    <img src="~/images/edit.png" alt="Edit" title="Edit" width="22" height="22" />
+                </a> |
+                <a asp-action="Details" asp-route-id="@item.Id" asp-route-accountName="@ViewBag.AccountName">
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" asp-route-accountName="@ViewBag.AccountName">
+                    <img src="~/images/delete.png" alt="Delete" title="Delete" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

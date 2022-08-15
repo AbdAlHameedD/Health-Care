@@ -1,0 +1,39 @@
+form .radio {
+    visibility: hidden;
+}
+
+form label.radioLabel {
+    padding: 15px;
+    background-color: #edf2f5;
+    color: #b3b3b3;
+}
+
+#female, #male {
+    display: none;
+}
+
+form label.male,
+form label.female {
+    background: none;
+    background-color: #edf2f5 !important;
+    border: none !important;
+    color: #000 !important;
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+}
+
+form label.female,
+#birthDateInput {
+    border-left: 5px solid #000 !important;
+}
+
+input[type="radio"]:checked + label {
+    font-weight: bolder;
+}
+
+form input.birthDate {
+    color: #000 !important;
+    padding: 20px !important;
+    background-color: #edf2f5 !important;
+}

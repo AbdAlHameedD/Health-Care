@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.ClinicAddress>
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Clinic Address</h1>
+<p>
+    <a asp-action="Create" asp-route-clinicId="@ViewBag.ClinicId">Add New Address</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuildingNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @{
+                    var id = (int)item.Id;
+                }
+                @id
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+                    @if(item.BuildingNumber is null)
+                    {
+                        <td>No Data </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @{
+                                var buildingNumber = (int?)item.BuildingNumber;
+                            }
+                            @buildingNumber
+                        </td>
+                    }
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" asp-route-clinicName="@ViewBag.ClinicName">
+                    <img src="~/images/edit.png" alt="Edit" title="Edit" width="22" height="22" />
+                </a> |
+                <a asp-action="Details" asp-route-id="@item.Id" asp-route-clinicName="@ViewBag.ClinicName">
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" asp-route-clinicName="@ViewBag.ClinicName">
+                    <img src="~/images/delete.png" alt="Delete" title="Delete" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

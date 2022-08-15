@@ -1,0 +1,174 @@
+﻿@model Health_Care_V1._2.Models.Account
+
+@{
+    ViewData["Title"] = "Register | Health Care";
+    Layout = "_LoginAndRegisterLayout";
+
+	var mainInfo = ViewBag.mainTable;
+}
+
+    <div class="content" style="background-image: url('../../images/login-and-register-backgorunds/@mainInfo.RegisterBackgroundImage'); background-repeat: no-repeat;">
+            <div class="container" style="padding-bottom:100px;">
+                <div class="row">
+                    <div class="col-md-12 contents">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 login-card" style="background-color: rgba(255, 255, 255, 0.5)">
+                                <div class="mb-4 d-flex justify-content-center">
+                                    <h3 style="font-size: 2.75rem">Sign Up</h3>
+                                </div>
+
+                                <form asp-action="Register" method="post">
+                
+                                    <!-- First Row -->
+                                    <div class="row">
+                                        <!-- Username -->
+                                        <div class="col-md-4" id="result">
+                                            <div class="form-group first">
+                                                <label asp-for="Username">
+                                                    Username
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Username" type="text" class="form-control" id="username" required minlength=8 maxlength=15 onblur="check(this)">                                               
+                                            </div>
+                                            <span style="color: red; font-size: 0.7rem; margin-bottom: 10px;">@ViewBag.UsernameStatus</span>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label asp-for="Password" for="password">
+                                                    Password
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Password" type="password" class="form-control" id="password" required minlength=10 maxlength=20>
+                                                
+                                            </div>
+                                        </div>
+                                        <!-- Email -->
+                                        <div class="col-md-4">
+                                            <div class="form-group first">
+                                                <label asp-for="Email" for="email">
+                                                    Email
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Email" type="email" class="form-control" id="email" required maxLength="255">
+                                            </div>
+                                            <span style="color: red; font-size: 0.7rem; margin-bottom: 10px;">@ViewBag.EmailStatus</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Second Row -->
+                                    <div class="row">
+                                        <!-- First Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label asp-for="Fname" for="firstName">
+                                                    First Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Fname" type="text" class="form-control" id="firstName" required minlength=3 maxlength=15>
+                                            </div>
+                                        </div>
+
+                                        <!-- Middle Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label asp-for="Mname" for="middleName">
+                                                    Middle Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Mname" type="text" class="form-control" id="middleName" required minlength=3 maxlength=15>
+                                            </div>
+                                        </div>
+
+                                        <!-- Last Name -->
+                                        <div class="col-md-4">
+                                            <div class="form-group last mb-4">
+                                                <label asp-for="Lname" for="lastName">
+                                                    Last Name
+                                                    <span style="color:red;">*</span>
+                                                </label>
+                                                <input asp-for="Lname" type="text" class="form-control" id="lastName" required minlength=3 maxlength=15>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Third Row -->
+                                    <div class="row">
+                                        <!-- Gender Label -->
+                                        <div class="col-md-4">
+                                            <label asp-for="Gender" class="radioLabel col-md-12">
+                                                Gender
+                                                <span style="color:red;">*</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-start col-md-8">
+                                              <!-- Male -->
+                                            <div class="col-md-6" style="padding: 0;">
+                                                <input asp-for="Gender" type="radio" class="btn-check radio" name="gender" id="male" autocomplete="off" value="M"
+                                                    required onclick="genderChangeBackgroundColor('male')"/>
+
+                                                <label asp-for="Gender" class="btn btn-secondary male col-md-12" for="male" id="maleLabel">Male</label>
+                                            </div>
+
+                                            <!-- Female -->
+                                            <div class="col-md-6" style="padding: 0;">
+                                                <input asp-for="Gender" type="radio" class="btn-check radio" name="gender" id="female" value="F"
+                                                    autocomplete="off" onclick="genderChangeBackgroundColor('female')"/>
+
+                                                <label asp-for="Gender" class="btn btn-secondary female col-md-12" for="female" id="femaleLabel"
+                                                    style="border-left: solid 5px #000 !important;">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Fourth Row -->
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex" style="margin-top: 20px; padding: 0;">
+                                            <!-- Birth Date Label -->
+                                            <div class="col-md-12 d-flex">
+                                                <label asp-for="Bod" class="radioLabel col-md-6" for="birthDateInput">
+                                                    Birth Date
+                                                    <span style="color:red;">*</span>
+                                                </label>
+
+                                                <div class="input-group date col-md-6" data-provide="datepicker" style="padding:0;">
+                                                    <input asp-for="Bod" type="date" class="birthDate form-control col-md-12" id="birthDateInput" required>
+                                                </div>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" value="Sign Up" class="btn btn-block btn-primary col-md-4" style="margin: 50px auto 0 auto;">
+
+                                    <div style="margin-top: 20px;" class="d-flex justify-content-center">
+                                        <span style="margin-right: 10px;">Already have an account?</span>
+                                        <a id="signUp" href="Login">Sign In</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            <div/>
+        </div>
+    </div>
+
+            <script>
+                $('#username').blur(function() {
+                    var url = "/LoginAndRegister/IsUsernameAvailable";
+                    var name = $('#username').val();
+                    $.get(url, {input:name}, function (data) {
+                        if (data){
+                            $("#result").html("<span style='color:green'>Avail</span>");
+                        }
+                        else {
+                            $("#result").html("<span style='color:red'>Unavail</span>");
+                        }
+                    });
+                })
+            </script>
+       

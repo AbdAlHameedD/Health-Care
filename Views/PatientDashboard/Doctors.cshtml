@@ -1,0 +1,83 @@
+﻿@model List<Health_Care_V1._2.Models.DoctorsJoin>
+
+@{
+    Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+}
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&display=swap" rel="stylesheet">
+
+<h1 class="view-header">Our Qualified Team</h1>
+<hr />
+
+<form action="@Url.Action("Doctors")" method="POST" >
+    <div class="d-flex col-md-3 justify-content-between"  style="margin-bottom: 10px; margin-top: 10px;" >
+        <label>Doctor Name:</label>
+        <select class="control-form" name="doctorId">
+            <option value="@null">None</option>
+            @foreach(var doctor in ViewBag.Doctors)
+            {
+                <option value="@doctor.EmployeeId">@doctor.FullName</option>
+            }
+        </select>
+    </div>
+
+    <div class="d-flex col-md-3 justify-content-between"  style="margin-bottom: 10px; margin-top: 10px;" >
+        <label>Clinic Name:</label>
+        <select class="control-form" name="clinicId">
+            <option value="@null">None</option>
+            @foreach(var clinic in ViewBag.Clinics)
+            {
+                <option value="@clinic.Id">@clinic.ClinicName</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3 justify-content-center d-flex" style="margin-bottom: 25px;">
+        <input type="submit" class="btn btn-primary" value="Submit" >
+    </div>
+</form>
+
+<div class="row con-1">
+    <div class="row flex-wrap justify-content-between col-md-12 row con-2">
+        @foreach (DoctorsJoin doctor in @Model)
+        {
+            <div class="col-md-4 col-sm-12">
+                <div class="col-md-10 doc-card" >
+                    <div class="doc-profile-pic-container" >
+                        <img src="~/images/profile-pictures/@doctor.ProfilePicture" alt="@doctor.FullName Profile Picture"
+                            class="img-fluid doc-profile-pic-" width=150 height=150 />
+                    </div>
+
+                    <h5>@doctor.FullName</h5>
+                    <h6>@doctor.ClinicName</h6>
+
+                    <div class="row">
+                        <ul class="d-flex justify-content-center">
+                            @{
+                                int x = (int)Math.Round( (doctor.Rate / (5 * (doctor.Frequent))), 0);
+                            }
+                            @for(int i=1; i<=5; i++)
+                            {
+                                if (i <= x)
+                                {
+                                    <li>
+                                        <span class="fa fa-star checked"></span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <span class="fa fa-star"></span>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model Health_Care_V1._2.Models.CreditCard
+
+@{
+    Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Credit Card</h1>
+
+<div class="row justify-content-start flex-column" style="margin: 50px;">
+    <form asp-action="Payment" method="POST">
+        <div class="col-md-3">
+            <label class="control-label">Card Type</label>
+            @if (!(Model is null))
+            {
+                ViewBag.CardType = Model.CardType;
+            }
+            <select asp-for="CardType" required class="form-control" value="@ViewBag.CardType">
+                <option value="Visa">Visa</option>
+                <option value="Mastercard">Mastercard</option>
+            </select>
+        </div>
+
+        <div class="col-md-4" style="margin-top: 20px;">
+            @if (!(Model is null))
+            {
+                ViewBag.CardNumber = Model.CardNumber;
+            }
+            <label  class="control-label">Card Number</label>
+            <input asp-for="CardNumber" type="text" required class="form-control" minlength=19 maxlength=19 value="@ViewBag.CardNumber" />
+        </div>
+
+        <div class="col-md-1" style="margin-top: 20px;">
+            @if (!(Model is null))
+            {
+                ViewBag.ExpMonth = Model.ExpMonth;
+            }
+            <label class="control-label">Expire Month</label>
+            <input asp-for="ExpMonth" type="number" required class="form-control" min=1 max=12 value="@ViewBag.ExpMonth" />
+        </div>
+
+        <div class="col-md-1" style="margin-top: 20px;">
+            @{
+                int minYear = DateTime.Now.Year;
+                int maxYear = DateTime.Now.Year + 8;
+            }
+            @if (!(Model is null))
+            {
+                ViewBag.ExpYear = Model.ExpYear;
+            }
+            <label class="control-label">Expire Year</label>
+            <input asp-for="ExpYear" type="number" required class="form-control" min=@minYear max=@maxYear value="@ViewBag.ExpYear" />
+        </div>
+
+        <div class="col-md-2" style="margin-top: 40px;">
+            <input type="submit" class="btn btn-primary" value="Update" />
+        </div>
+    </form>
+    
+</div>

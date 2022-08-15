@@ -1,0 +1,40 @@
+﻿@model Health_Care_V1._2.Models.Clinic
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Create</h1>
+
+<h6>New Clinic</h6>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClinicName" class="control-label"></label>
+                <input asp-for="ClinicName" class="form-control" required minlength="3" maxlength=30 />
+                <span asp-validation-for="ClinicName" class="text-danger">@ViewBag.ClinicNameErrorMsg</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionDate" class="control-label"></label>
+                <input asp-for="AdditionDate" class="form-control" required />
+                <span asp-validation-for="AdditionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

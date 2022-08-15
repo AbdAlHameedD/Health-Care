@@ -1,0 +1,148 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.AppointemtJoin>
+
+@{
+    Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+}
+
+
+<h1 class="view-header">Appointments</h1>
+
+<p>
+    <a asp-action="Create" asp-route-patientId="@ViewBag.AccountId">Reserve a New Appointment &plusmn;</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                From Date
+            </th>
+            <th>
+                To Date
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Doctor Name
+            </th>
+            <th>
+                Doctor Email
+            </th>
+            <th>
+                Clinic Name
+            </th>            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if (item.ToDate <= DateTime.Now && item.Status == "Waiting")
+            {
+                @Html.ActionLink("", "SetAppointment", "PatientDashboard", new { id = item.Id, status="Cancelled"}, new { @class="clicked" } )
+                continue;
+            }
+            if (item.ToDate <= DateTime.Now && item.Status == "Accepted")
+            {
+                @Html.ActionLink("", "SetAppointment", "PatientDashboard", new { id = item.Id, status="Completed"}, new { @class="clicked" } )
+                continue;
+            }
+            <tr>
+            <td>
+                @Math.Round(item.Id, 0)
+            </td>
+            <td>
+                @item.FromDate
+            </td>
+            <td>
+                @item.ToDate
+            </td>
+            <td>
+                @{
+                    string circleColor = "#000000";
+                    switch (item.Status)
+                    {
+                        case "Waiting":
+                            circleColor = "#FFD133";
+                            break;
+
+                        case "Accepted":
+                            circleColor = "#1E7F04";
+                            break;
+
+                        case "Completed":
+                            circleColor = "#63b322";
+                            break;
+
+                        case "Rejected":
+                            circleColor = "#C80D0D";
+                            break;
+
+                        case "Cancelled":
+                            circleColor = "#000000";
+                            break;
+                    }
+                }
+                        
+                <span style="color: @circleColor;">&#9679;</span>
+                @item.Status
+            </td>
+            <td>
+                @item.DoctorFname @item.DoctorLname
+            </td>
+            <td>
+                @item.DoctorEmail
+            </td>
+            <td>
+                @item.ClinicName
+            </td>
+            <td>
+               <a asp-action="Details" asp-route-id="@item.Id">
+                   <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+               </a> 
+               @if (item.Status == "Waiting")
+               {
+                   <span>|</span>
+
+                   <!-- Cancel Appoitnment -->
+                  <a asp-action="SetAppointment" asp-route-id="@item.Id" asp-route-status="Cancelled"
+                            title="Cancel Appointment" style="color: red;">
+                       &#x2716;
+                  </a>
+               }
+                    @if (item.Status == "Completed")
+                    {
+                        List<Invoice> invoicesData = ViewBag.invoicesData;
+                        Invoice invoice = (from inv in invoicesData
+                                 where inv.AppointmentId == item.Id
+                                 select inv).FirstOrDefault();
+                        <span>|</span>
+                        if (!(invoice is null))
+                        {
+                            <!-- Invoice -->
+                            <a asp-action="InvoiceDetails" asp-route-invoiceId=@invoice.Id asp-route-appointmentId="@item.Id" asp-route-clinicId="@item.ClinicId"
+                                    asp-route-doctorName="@item.DoctorFname @item.DoctorLname" asp-route-patientId="@item.PatientAccountId" >
+                                <img src="~/images/create-invoice.png" title="View Invoice" alt="View Invoice" width="22" height="22" />
+                            </a>
+                        }
+                        else
+                        {
+                            <!-- Disabled Invoice -->
+                            <img src="~/images/disabled-invoice.png" title="Invoice is not ready yet" alt="Invoice is not ready yet" width="22" height="22" />
+                        }
+                    }
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    const collection = document.getElementsByClassName("clicked");
+    for (let i=0; i<collection.length; i++){
+        collection[i].click();
+    }
+</script>

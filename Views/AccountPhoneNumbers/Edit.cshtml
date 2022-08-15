@@ -1,0 +1,44 @@
+﻿@model Health_Care_V1._2.Models.AccountPhoneNumber
+
+@{
+    if (ViewBag.Permission == "ADMIN")
+    {
+        Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    }
+    else if (ViewBag.Permission == "DOCTOR")
+    {
+        Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+    }
+}
+
+<h1 class="view-header">Edit Phone Number</h1>
+<h6>Account Name: @ViewBag.AccountName</h6>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                @{
+                    decimal phoneNumber = Math.Round(Model.PhoneNumber, 0);
+                }
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" value="@phoneNumber" required />
+                <span asp-validation-for="PhoneNumber" class="text-danger">@ViewBag.PhoneNumberErrorMsg</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-accountId="@Model.AccountId" asp-route-accountName="@ViewBag.AccountName" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-accountId="@Model.AccountId" asp-route-accountName="@ViewBag.AccountName">Back to List</a>
+</div>
+

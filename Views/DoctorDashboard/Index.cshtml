@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.AppointemtJoin>
+
+@{
+    Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Appointments</h1>
+
+<form action="@Url.Action("Index")" method="POST" >
+    <div class="d-flex col-md-3 justify-content-between" style="margin-top: 25px;">
+        <label>From Date:</label>
+        <input name="fromDate" type="datetime-local" class="control-form" />
+    </div>
+
+    <div class="d-flex col-md-3 justify-content-between"  style="margin-bottom: 10px; margin-top: 10px;" >
+        <label>To Date:</label>
+        <input name="toDate" type="datetime-local" class="control-form" />
+    </div>
+
+    <div class="d-flex col-md-3 justify-content-between"  style="margin-bottom: 10px; margin-top: 10px;" >
+        <label>Patient Name:</label>
+        <select class="control-form" name="patientId">
+            <option value="@null">None</option>
+            @foreach(var acc in ViewBag.PatientAcc)
+            {
+                <option value="@acc.PatientId">@acc.PatientName</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3 justify-content-center d-flex" style="margin-bottom: 25px;">
+        <input type="submit" class="btn btn-primary" value="Submit" >
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Patient Name
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                From Date
+            </th>
+            <th>
+                To Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if (item.FromDate <= DateTime.Now && item.Status == "Waiting")
+            {
+                @Html.ActionLink("", "SetAppointment", "DoctorDashboard", new { id = item.Id, status="Cancelled"}, new { @class="clicked" } )
+                continue;
+            }
+            if (item.FromDate <= DateTime.Now && item.Status == "Accepted")
+            {
+                @Html.ActionLink("", "SetAppointment", "DoctorDashboard", new { id = item.Id, status="Completed"}, new { @class="clicked" } )
+                continue;
+            }
+            <tr>
+            <td>
+                @Math.Round(item.Id, 0)
+            </td>
+            <td>
+                @item.PatientFname @item.PatientLname
+            </td>
+                @if(item.PatientGender == "M")
+                {
+                    <td>
+                        <span style="color: #207dff;">&#9679;</span>
+                        Male
+                    </td>
+                }else
+                {
+                    <td>
+                        <span style="color: #cf1260;">&#9679;</span>
+                        Female
+                    </td>
+                }
+            <td>
+                @{
+                    int age = 0;
+                    age = DateTime.Now.Year - item.PatientBoD.Year;
+                 } 
+                 @age
+            </td>
+            <td>
+                @{
+                    string circleColor = "#000000";
+                    switch (item.Status)
+                    {
+                        case "Waiting":
+                            circleColor = "#FFD133";
+                            break;
+
+                        case "Accepted":
+                            circleColor = "#1E7F04";
+                            break;
+
+                        case "Completed":
+                            circleColor = "#63b322";
+                            break;
+
+                        case "Rejected":
+                            circleColor = "#C80D0D";
+                            break;
+
+                        case "Cancelled":
+                            circleColor = "#000000";
+                            break;
+                    }
+                }
+                        
+                <span style="color: @circleColor;">&#9679;</span>
+                @item.Status
+            </td>
+            <td>
+                @item.FromDate
+            </td>
+            <td>
+                @item.ToDate
+            </td>
+            <td>
+               <a asp-action="Details" asp-route-id="@item.Id">
+                   <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+               </a> 
+               @if(item.Status == "Waiting")
+               {
+                  <span>|</span>
+                  <!-- Accept Appoitnment -->
+                  <a asp-action="SetAppointment" asp-route-id="@item.Id" asp-route-status="Accepted"
+                        asp-route-clinicName="@item.ClinicName" title="Accept Appointment" style="color: green;"
+                        asp-route-doctorName="@item.DoctorFname @item.DoctorLname" 
+                        asp-route-pateintName = "@item.PatientFname @item.PatientLname"
+                        asp-route-patientEmail = "@item.PatientEmail"
+                        asp-route-startDate="@item.FromDate" asp-route-endDate="@item.ToDate">
+                      &#x2714;
+                  </a> <span>|</span>
+
+                  <!-- Reject Appoitnment -->
+                  <a asp-action="SetAppointment" asp-route-id="@item.Id" asp-route-status="Rejected"
+                        asp-route-clinicName="@item.ClinicName" title="Reject Appointment" style="color: red;"
+                        asp-route-doctorName="@item.DoctorFname @item.DoctorLname" 
+                        asp-route-patientName = "@item.PatientFname @item.PatientLname"
+                        asp-route-patientEmail = "@item.PatientEmail"
+                        asp-route-startDate="@item.FromDate" asp-route-endDate="@item.ToDate">
+                      &#x2716;
+                  </a>
+               }
+               @if(item.Status == "Completed")
+                    {
+                        List<Invoice> invoices = ViewBag.invoicesData;
+                        var invoice = (from inv in invoices
+                                       where inv.AppointmentId == item.Id
+                                       select inv).FirstOrDefault();
+                        if (invoice is null)
+                        {
+                            <span>|</span>
+                            <!-- Create Invoice -->
+                            <a asp-action="CreateInvoice" asp-route-appointmentId="@item.Id" asp-route-clinicId="@item.ClinicId" asp-route-patientId="@item.PatientAccountId"
+                                    asp-route-doctorId="@item.DoctorId"  >
+                              <img src="~/images/create-invoice.png" title="Create Invoice" alt="Create Invoice" width="22" height="22" />
+                            </a>
+                        }
+               }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    const collection = document.getElementsByClassName("clicked");
+    for (let i=0; i<collection.length; i++){
+        collection[i].click();
+    }
+</script>

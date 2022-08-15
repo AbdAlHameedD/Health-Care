@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.InvoiceItem>
+
+@{
+    Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+}
+<div class="row">
+    <h1 class="view-header col-md-10">Create New Invoice</h1>
+    @{
+        string note = "";
+    }
+    <form class="col-md-2" style="margin-top: 43px; margin-bottom: 15px;">
+        <button class="btn btn-primary" title="Save Invoice" asp-action="SaveInvoice" >Save</button>
+        <button class="btn btn-danger" title="Cancel And Return Appointments" asp-action="RemoveInvoice" asp-route-invoiceId="@ViewBag.InvoiceId">Cancel</button>
+    </form>
+</div>
+
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>
+                Item Name<span style="color:red";"><sup>*</sup></span>
+            </th>
+            <th>
+                Item Description
+            </th>
+            <th>
+                Quantity<span style="color:red";"><sup>*</sup></span>
+            </th>
+            <th>
+                Price<span style="color:red";"><sup>*</sup></span>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        @foreach(var item in ViewBag.InvoiceItems)
+        {
+            <tr>
+                <td>
+                    @item.ItemName
+                </td>
+                <td>
+                    @item.ItemDescription
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+        <form asp-action="AddItem" asp-route-invoiceId="@ViewBag.InvoiceId">
+            <tr>
+                <td>
+                    <input name="itemName" id="name" type="text" maxlength=50 required />
+                </td>
+                <td>
+                    <input name="itemDescription" id="description" type="text" maxlength=255 />
+                </td>
+                <td>
+                    <input name="quantity" id="quantity" type="number" min="1" required />
+                </td>
+                <td>
+                    <input name="itemPrice" id="price" type="number" min="1" required />
+                </td>
+                <td>
+                    <button type="submit" style="font-size: 2rem; font-weight: bolder; color: blue;">&plus;</button>
+                </td>
+            </tr>
+        </form>
+    </tbody>
+</table>

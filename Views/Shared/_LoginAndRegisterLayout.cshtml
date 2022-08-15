@@ -1,0 +1,261 @@
+﻿@using System.Web
+
+@{
+	var mainInfo = ViewBag.MainTable;
+	ViewData["Title"] = "Login | Health Care";
+}
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+
+		 <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="~/login_register/fonts/icomoon/style.css">
+
+        <link rel="stylesheet" href="~/login_register/css/owl.carousel.min.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="~/login_register/css/bootstrap.min.css">
+        
+        <!-- Style -->
+        <link rel="stylesheet" href="~/login_register/css/style.css">
+        <link rel="stylesheet" href="~/login_register/css/register.css" />
+		
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+		<link rel="stylesheet" href="~/css/open-iconic-bootstrap.min.css">
+		<link rel="stylesheet" href="css/animate.css">
+		
+		<link rel="stylesheet" href="~/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+		<link rel="stylesheet" href="~/css/magnific-popup.css">
+
+		<link rel="stylesheet" href="~/css/aos.css">
+
+		<link rel="stylesheet" href="~/css/ionicons.min.css">
+		
+		<link rel="stylesheet" href="~/css/flaticon.css">
+		<link rel="stylesheet" href="~/css/icomoon.css">
+		<link rel="stylesheet" href="~/css/style.css">
+
+		<link rel="icon" type="image/x-icon" href="/images/health-care-logo.svg">
+  	</head>
+
+	<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+		<div class="py-1 bg-black top">
+			<div class="container">
+				<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+					<div class="col-lg-12 d-block">
+						<div class="row d-flex">
+							<div class="col-md pr-4 d-flex topper align-items-center">
+								<div class="icon mr-2 d-flex justify-content-center align-items-center">
+									<span class="icon-phone2"></span>
+								</div>
+								<span class="text">@mainInfo.PhoneNumber</span>
+							</div>
+							<div class="col-md pr-4 d-flex topper align-items-center">
+								<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+								<span class="text">@mainInfo.WebsiteEmail</span>
+							</div>
+							<div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
+								<p class="mb-0 register-link">
+									<!-- Sign Up -->
+									<a href="../LoginAndRegister/Register" class="mr-3">Sign Up</a>
+
+									<!-- Sign In -->
+									<a href="../LoginAndRegister/Login">Sign In</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Navbar Start -->
+		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+			<div class="container">
+				<a class="navbar-brand" href="http://localhost:14256/"><img src="~/images/@mainInfo.LogoPath" width="100vw" height="100vh"/></a>
+				<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="oi oi-menu"></span>
+					Menu
+				</button>
+
+				<div class="collapse navbar-collapse" id="ftco-nav">
+					<ul class="navbar-nav nav ml-auto">
+						
+						<!-- Navbar Links -->
+						@foreach (var record in ViewBag.HeaderLinkTable)
+						{
+							<li class="nav-item">
+								<a href="@Url.Content(@record.Link)" class="nav-link">
+									<span>
+										@record.Nickname
+									</span>
+								</a>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Navbar End -->
+
+		@RenderBody()
+
+    	<!-- Footer Start -->
+		<footer class="ftco-footer ftco-section img" style="background-image: url(~/images/@mainInfo.FooterBg);">
+			<div class="overlay"></div>
+				<div class="container-fluid px-md-5">
+					<div class="row mb-5">
+						<div class="col-md">
+							<div class="ftco-footer-widget mb-4">
+								<h2 class="ftco-heading-2">@mainInfo.WebsiteName</h2>
+								<p>@mainInfo.HomeContent</p>
+								<ul class="ftco-footer-social list-unstyled mt-5">
+
+									<!-- Twitter Link -->
+									<li class="ftco-animate">
+										<a href="#">
+											<span class="icon-twitter"></span>
+										</a>
+									</li>
+
+									<!-- Facebook Link -->
+									<li class="ftco-animate">
+										<a href="#">
+											<span class="icon-facebook"></span>
+										</a>
+									</li>
+
+									<!-- Instagram Link -->
+									<li class="ftco-animate">
+										<a href="#">
+											<span class="icon-instagram"></span>
+										</a>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+						
+						<div class="col-md">
+							<div class="ftco-footer-widget mb-4 ml-md-4">
+								<h2 class="ftco-heading-2">Clinics</h2>
+								<ul class="list-unstyled">
+									<!-- Footer Departments -->
+									@foreach (var clinicName in ViewBag.ClinicNames)
+									{
+										<li class="black">
+											<span class="icon-long-arrow-right mr-2 arrow"></span>
+											@clinicName
+										</li>
+									}
+									
+								</ul>
+							</div>
+						</div>
+
+						<!-- Links -->
+						<div class="col-md">
+							<div class="ftco-footer-widget mb-4 ml-md-4">
+								<h2 class="ftco-heading-2">Links</h2>
+								<ul class="list-unstyled">
+
+									<!-- Footer Links -->
+									@foreach (var record in ViewBag.FooterLinks)
+									{
+										<li>
+											<a  href="@record.Link">
+												<span class="icon-long-arrow-right mr-2"></span>
+												@record.Nickname
+											</a>
+										</li>
+									}									
+								</ul>
+							</div>
+						</div>
+						<div class="col-md">
+							<div class="ftco-footer-widget mb-4">
+								<h2 class="ftco-heading-2">@mainInfo.FooterTitleAttribute04</h2>
+								<ul class="list-unstyled">
+
+									<!-- Footer Services -->
+									@foreach (var item in ViewBag.FooterServices)
+									{
+										<li>
+											<a href="#">
+												<span class="icon-long-arrow-right mr-2"></span>
+												@item.Nickname
+											</a>
+										</li>
+									}
+								</ul>
+							</div>
+						</div>
+						<div class="col-md">
+							<div class="ftco-footer-widget mb-4">
+								<h2 class="ftco-heading-2">@mainInfo.FooterTitleAttribute05</h2>
+								<div class="block-23 mb-3">
+								<ul>
+
+									<!-- Address -->
+									<li>
+										<span class="icon icon-map-marker"></span>
+										<span class="text">
+											@mainInfo.FooterAttributeAddress05
+										</span>
+									</li>
+
+									<!-- Phone Number -->
+									<li>
+										<a href="#">
+											<span class="icon icon-phone"></span>
+											<span class="text">
+												@mainInfo.PhoneNumber
+											</span>
+										</a>
+									</li>
+
+									<!-- Email -->
+									<li>
+										<a href="#">
+											<span class="icon icon-envelope pr-4"></span>
+											<span class="text">
+												@mainInfo.WebsiteEmail
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 text-center">
+		
+						<p>
+							Copyright &copy;@DateTime.Now.Year All @Html.Raw(HttpUtility.HtmlDecode(@mainInfo.CopyrightContent))
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- Footer End -->
+
+		<script src="~/js/google-map.js"></script>
+		<script src="js/main.js"></script>
+		<script src="~/login_register/js/jquery-3.3.1.min.js"></script>
+        <script src="~/login_register/js/popper.min.js"></script>
+        <script src="~/login_register/js/bootstrap.min.js"></script>
+        <script src="~/login_register/js/main.js"></script>
+        <script src="~/login_register/js/register.js"></script>
+			
+	</body>
+</html>

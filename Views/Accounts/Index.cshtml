@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.Account>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Accounts</h1>
+
+<p>
+    <a asp-action="Create" title="Add New Account">
+        Create New Account &plus;
+    </a>
+</p>
+
+<div class="table-responsive">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Permission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProfilePicture)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+               @{
+                   int id = (int)item.Id;
+               }
+                @Html.DisplayFor(modelItem => @id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            @if(item.Gender == "M")
+            {
+                <td>
+                    <span style="color: #207dff;">&#9679;</span>
+                    Male
+                </td>
+            }
+            else
+            {
+                <td>
+                    <span style="color: #cf1260;">&#9679;</span>
+                    Female
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Bod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Permission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                <img src="~/images/profile-pictures/@item.ProfilePicture" width="64" height="64" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" >
+                    <img src="~/images/edit.png" alt="Edit" title="Edit" width="22" height="22" />
+                </a> 
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="~/images/details.png" alt="Details" title="Details" width="22" height="22" />
+                </a> 
+                <a asp-action="Delete" asp-route-id="@item.Id">
+                    <img src="~/images/delete.png" alt="Delete" title="Delete" width="22" height="22" />
+                </a>
+                        @{
+                            string fullName = $"{item.Fname} {item.Mname} {item.Lname}";
+                        }
+                <a class="col-md-4 recordLink" asp-controller="AccountAddresses" asp-action="Index" asp-route-accountId="@item.Id" asp-route-accountName="@fullName" >
+                    <img src="~/images/edit-addresses.png" alt="Edit Addresses" title="Edit Addresses" width="22" height="22" />
+                </a> 
+                <a class="col-md-4 recordLink" asp-controller="AccountPhoneNumbers" asp-action="Index" asp-route-accountId="@item.Id" asp-route-accountName="@fullName" >
+                    <img src="~/images/edit-phone-numbers.png" alt="Edit Phone Numbers" title="Edit Phone Numbers" width="22" height="22" />
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

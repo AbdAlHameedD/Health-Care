@@ -1,0 +1,207 @@
+﻿@model IEnumerable<Health_Care_V1._2.Models.InvoiceItem>
+
+@{
+    Layout = "~/Views/Shared/_PatientDashboardLayout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js" integrity="sha512-vNrhFyg0jANLJzCuvgtlfTuPR21gf5Uq1uuSs/EcBfVOz6oAHmjqfyPoB5rc9iWGSnVE41iuQU4jmpXMyhBrsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div style="margin: 50px;" id="invoice">
+    <div class="row">
+
+        <!-- Logo -->
+        <div class="col-md-2 justify-content-center d-flex">
+            <img src="~/images/@ViewBag.MainTable.LogoPath" />
+        </div>
+
+        <div class="col-md-10 d-flex flex-wrap" id="cli">
+
+            <!-- Clinic Information -->
+            <div class="col-md-6">
+                <ul class="lll-1">
+                    <!-- Clinic Name -->
+                    <li>
+                        <h3 style="font-weight: bold; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                            @ViewBag.Clinic.ClinicName
+                        </h3>
+                    </li>
+                
+                    <!-- Clinic Addresses -->
+
+                    @if (!(ViewBag.ClinicAddresses is null))
+                    {
+                        @foreach (var item in ViewBag.ClinicAddresses)
+                        {
+                            <li>
+                                @item.Country, @item.City, @item.Street
+                                @if(!(item.BuildingNumber is null))
+                                {
+                                    @item.BuildingNumber
+                                }
+
+                            </li>
+                        }
+                    }
+
+                    <!-- Clinic Phone Number -->
+                    @if (!(ViewBag.ClinicPhoneNumber is null))
+                    {
+                        <li>@ViewBag.ClinicPhoneNumber.PhoneNumber</li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Invoice Information -->
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <ul class="lll-1">
+
+                    <!-- Invoice Creation Date -->
+                    <li>
+                        Date: @ViewBag.Invoice.CreationDate.Date
+                    </li>
+                    
+                    <!-- Invoice id -->
+                    <li>
+                        Invoice ID: <bold>@ViewBag.Invoice.Id</bold>
+                    </li>
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 justify-content-start">
+            <ul class="lll-2">
+                <li>Patient Name</li>
+                <li>Age</li>
+                @if (!(@ViewBag.PatientAddress is null))
+                {
+                    <li>Patient Address</li>
+                }
+
+                @if (!(@ViewBag.PatientPhoneNumber is null))
+                {
+                    <li>Patient Phone Number</li>
+                }
+                
+                <li>Patient Email</li>
+            </ul>
+        </div>
+
+        <div class="col-md-6 justify-content-end">
+            <ul class="lll-2">
+                
+                <!-- Patient Full Name -->
+                <li>@ViewBag.Patient.Fname @ViewBag.Patient.Mname @ViewBag.Patient.Lname</li>
+
+                <!-- Patient Age -->
+                <li>
+                    @{
+                        var age = DateTime.Now.Year - ViewBag.Patient.Bod.Year;
+                    }
+                    @age
+                </li>
+
+                <!-- Patient Address -->
+                @if (!(@ViewBag.PatientAddress is null))
+                {
+                    <li>
+                        @ViewBag.PatientAddress.Country
+                        @if (!(ViewBag.PatientAddress.City is null))
+                        {
+                            <span>, </span>
+                            @ViewBag.PatientAddress.City
+                        }
+                    </li>
+                }
+
+                @if (!(@ViewBag.PatientPhoneNumber is null))
+                {
+                    <li>@ViewBag.PatientPhoneNumber</li>
+                }
+
+                <!-- Patient Email -->
+                <li>@ViewBag.Patient.Email</li>
+            </ul>
+        </div>
+    </div>
+    <hr />
+
+    <table class="table-responsive" style="width: 100%;" id="example">
+        <thead class="inv-thead">
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Item Description</th>
+                <th>Item Quantity</th>
+                <th>Item Price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <!-- ID -->
+                    <td>@item.Id</td>
+
+                    <!-- Item Name -->
+                    <td>@item.ItemName</td>
+
+                    <!-- Item Description -->
+                    <td>@item.ItemDescription</td>
+
+                    <!-- Item Quantity -->
+                    <td>@item.Quantity</td>
+
+                    <!-- Item Price -->
+                    <td>@item.Price</td>
+                </tr>
+            }
+
+            <tr>
+                <td colspan="4" style="font-size:2rem; font-weight:bold; letter-spacing: 3px;">
+                    Total
+                </td>
+                <td style="font-size:2rem; font-weight:bold;">
+                    @ViewBag.TotalPrice
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row" style="margin: 50px;">
+
+        <div class="col-md-6">
+            <h6>Doctor Note:</h6>
+            <!-- Note Textarea -->
+            <textarea class="invoice-note col-md-11" disabled >@ViewBag.Invoice.Notes</textarea>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end flex-column">
+            @if (@ViewBag.Invoice.Status == "UNPAID")
+            {
+                <!-- Pay -->
+                <div class="row justify-content-end align-items-center" style="margin-bottom: 15px;">
+                    <button class="btn btn-primary" onclick="location.href='@Url.Action("Rate", "PatientDashboard", new {invoiceId=@ViewBag.Invoice.Id})'">Pay</button>
+                </div>                
+            }
+
+            <!-- Download -->
+            <div class="row justify-content-end">
+                <button class="btn btn-dark" id="download" >Download</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <hr />
+    <div class="row justify-content-center">
+        <h6>Thank you</h6>
+    </div>
+    <hr />
+</div>
+
+<script src="~/dashboard/assets/js/pdf-invoice.js"></script>

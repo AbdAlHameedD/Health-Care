@@ -1,0 +1,30 @@
+﻿@model Health_Care_V1._2.Models.ClinicPhoneNumber
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Add Phone Number</h1>
+
+<h6>Clinic Name: @ViewBag.ClinicName</h6>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" asp-route-clinicId="@ViewBag.ClinicId" asp-route-clinicName="@ViewBag.ClinicName" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-clinicId="@ViewBag.ClinicId" asp-route-clinicName="@ViewBag.clinicName">Back to List</a>
+</div>
+

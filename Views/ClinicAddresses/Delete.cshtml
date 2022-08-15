@@ -1,0 +1,53 @@
+﻿@model Health_Care_V1._2.Models.ClinicAddress
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Delete</h1>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h6>Clinic ID: @Model.ClinicId</h6>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BuildingNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                var buildingNumber = (int?)Model.BuildingNumber;
+             }
+             @buildingNumber
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Clinic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Clinic.ClinicName)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" asp-route-clinicId="@Model.ClinicId" asp-route-clinicName="@ViewBag.ClinicName" /> |
+        <a asp-action="Index" asp-route-clinicId="@Model.ClinicId" asp-route-clinicName="@ViewBag.ClinicName">Back to List</a>
+    </form>
+</div>

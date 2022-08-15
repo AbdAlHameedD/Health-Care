@@ -1,0 +1,44 @@
+﻿@model List<Health_Care_V1._2.Models.Account>
+
+@{
+    Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+}
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@800&display=swap" rel="stylesheet">
+
+<h1 class="view-header">Patients</h1>
+<hr />
+
+<form action="@Url.Action("Patients")" method="POST" >
+    <div class="d-flex col-md-3 justify-content-between"  style="margin-bottom: 10px; margin-top: 10px;" >
+        <label>Patient Name:</label>
+        <input type="text" name="fullName" minlength=11 maxlength=47 placeholder="Patient Name" />
+    </div>
+
+    <div class="col-md-3 justify-content-center d-flex" style="margin-bottom: 25px;">
+        <input type="submit" class="btn btn-primary" value="Submit" >
+    </div>
+</form>
+
+<div class="row con-1">
+    <div class="row flex-wrap justify-content-between col-md-12 row con-2">
+        @foreach (Account patient in @Model)
+        {
+            <div class="col-md-4 col-sm-12">
+                <div class="col-md-10 doc-card" >
+                    <div class="doc-profile-pic-container" >
+                        <img src="~/images/profile-pictures/@patient.ProfilePicture" alt="@patient.Fname @patient.Mname @patient.Lname Profile Picture"
+                            class="img-fluid doc-profile-pic-" width=150 height=150 />
+                    </div>
+
+                    <h5>@patient.Fname @patient.Mname @patient.Lname</h5>
+                    <h6>@patient.Email</h6>
+                </div>
+            </div>
+           
+        }
+    </div>
+</div>

@@ -1,0 +1,186 @@
+﻿
+@{
+    Layout = "_AdminDashboardLayout";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Account Statistics</h4>
+                    </div>
+                    
+                    <div class="card-body ">
+                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                            
+                        <div class="legend">
+                            <i class="fa fa-circle text-info"></i> Admin @ViewBag.AdminAccountsNumber 
+                            <i class="fa fa-circle text-danger"></i> Doctor @ViewBag.DoctorAccountsNumber 
+                            <i class="fa fa-circle text-warning"></i> Patient @ViewBag.PatientAccountsNumber 
+                            <i class="fa fa-circle text-total"></i> Total @ViewBag.TotalAccountsNumber 
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="card ">
+                    <div class="card-header">
+                        <h4 class="card-title">Appointments Statistics</h4>
+                    </div>
+                    
+                    <div class="card-body ">
+                        <div id="chartHours" class="ct-chart"></div>
+                    </div>
+                                    
+                    <div class="card-footer ">
+                        <div class="legend">
+                            <i class="fa fa-circle text-info"></i> Completed
+                            <i class="fa fa-circle text-danger"></i> Waiting
+                            <i class="fa fa-circle text-warning"></i> Cancelled
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title">Sales</h4>
+                        <p class="card-category">All sales for the year</p>
+                    </div>
+                                    
+                    <div class="card-body ">
+                        <div id="chartActivity" class="ct-chart"></div>
+                    </div>
+                                    
+                    <div class="card-footer ">
+                        <div class="legend">
+                            <i class="fa fa-circle text-info"></i> Profits $
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    int counter = 1;
+    foreach (string label in ViewBag.AppointmentLabels)
+    {
+        string lblId = $"label{counter++}";
+        <input type="hidden" id="@lblId" runat="server" value="@label" />
+    }
+
+    counter = 1;
+    foreach (int numberOfCompleted in ViewBag.CompletedAppointments)
+    {
+        string comId = $"com{counter++}";
+        <input type="hidden" id="@comId" runat="server" value="@numberOfCompleted" />
+    }
+
+    counter = 1;
+    foreach (int numberOfWaiting in ViewBag.WaitingAppointments)
+    {
+        string waitId = $"wait{counter++}";
+        <input type="hidden" id="@waitId" runat="server" value="@numberOfWaiting" />
+    }
+
+    counter = 1;
+    foreach (int numberOfCancelled in ViewBag.CancelledAppointments)
+    {
+        string cancelId = $"cancel{counter++}";
+        <input type="hidden" id="@cancelId" runat="server" value="@numberOfCancelled" />
+    }
+
+    counter = 1;
+    foreach (int PaidInvoice in ViewBag.PaidInvoices)
+    {
+        string invlId = $"invoice{counter++}";
+        <input type="hidden" id="@invlId" runat="server" value="@PaidInvoice" />
+    }
+}
+
+
+ <!--   Core JS Files   -->
+<script src="~/dashboard/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="~/dashboard/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="~/dashboard/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="~/dashboard/assets/js/plugins/bootstrap-switch.js"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Chartist Plugin  -->
+<script src="~/dashboard/assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="~/dashboard/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
+<script src="~/dashboard/assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
+<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
+<script src="~/dashboard/assets/js/demo.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var labels = [];
+        var completedAppointments = [];
+        var waitingAppointments = [];
+        var cancelledAppointments = [];
+        var paidInvoices = [];
+        var maxAppointmentValue = 0;
+        var maxInvoice = 0;
+
+        for(var i=1; i<=12; i++){
+            var lblId = "label" + i;
+            labels.push(document.getElementById(lblId).value);
+        }
+
+        for(var i=1; i<=12; i++){
+            var comId = "com" + i;
+            var value = document.getElementById(comId).value;
+
+            completedAppointments.push(value);
+            maxAppointmentValue = Math.max(completedAppointments);
+        }
+
+        for(var i=1; i<=12; i++){
+            var waitId = "wait" + i;
+            var value = document.getElementById(waitId).value;
+
+            waitingAppointments.push(value);
+            if (Math.max(waitingAppointments) > maxAppointmentValue) { maxAppointmentValue = Math.max(waitingAppointments); }
+        }
+
+        for(var i=1; i<=12; i++){
+            var cancelId = "cancel" + i;
+            var value = document.getElementById(cancelId).value;
+
+            cancelledAppointments.push(value);
+            if (Math.max(cancelledAppointments) > maxAppointmentValue) { maxAppointmentValue = Math.max(cancelledAppointments); }
+        }
+        
+        for(var i=1; i<=12; i++){
+            var invId = "invoice" + i;
+            var value = document.getElementById(invId).value;
+
+            paidInvoices.push(value);
+        }
+        maxInvoice = Math.max(paidInvoices);
+
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts(@ViewBag.AdminAccountsPrecentage,
+            @ViewBag.DoctorAccountsPrecentage,@ViewBag.PatientAccountsPrecentage,
+            labels, completedAppointments, waitingAppointments, cancelledAppointments,
+            maxAppointmentValue, paidInvoices, maxInvoice);
+        demo.showNotification();
+
+    });
+</script>
+
+

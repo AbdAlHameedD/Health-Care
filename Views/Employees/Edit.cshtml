@@ -1,0 +1,37 @@
+﻿@model Health_Care_V1._2.Models.Employee
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Edit Employee</h1>
+<h6>Employee Name: @ViewBag.EmployeeName</h6>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Clinic" class="control-label"></label>
+                <select asp-for="ClinicId" class="form-control" asp-items="ViewBag.ClinicsName"></select>
+                <span asp-validation-for="Clinic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-clinicId1="@ViewBag.ClinicId1" asp-route-clinicName="@ViewBag.ClinicName"
+                    asp-route-accountId="@ViewBag.AccountId1" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-clinicId="@ViewBag.ClinicId1" asp-route-clinicName="@ViewBag.ClinicName">Back to List</a>
+</div>
+

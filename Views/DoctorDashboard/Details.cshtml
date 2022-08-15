@@ -1,0 +1,141 @@
+﻿@model Health_Care_V1._2.Models.AppointemtJoin
+
+@{
+    Layout = "~/Views/Shared/_DoctorDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Details</h1>
+
+<div>
+    <h6>Appointment</h6>
+    <hr />
+    
+    <div style="margin-left: 10px; margin-right: 10px; margin-bottom: 25px;">
+        <!-- Appointment Information -->
+        <table class="table-responsive col-md-12">
+            <!-- Caption -->
+            <caption>Appointment Information</caption>
+
+            <!-- Headers -->
+            <thead>
+                <tr>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                    <th>Creation Date</th>
+                </tr>
+            </thead>
+
+            <!-- Data -->
+            <tbody>
+                 <tr>
+                     <td>
+                         @Model.FromDate
+                     </td>
+                     <td>
+                         @Model.ToDate
+                     </td>
+                     <td>
+                        @{
+                            string circleColor = "#000000";
+                            switch (@Model.Status)
+                            {
+                                case "Waiting":
+                                    circleColor = "#FFD133";
+                                    break;
+
+                                case "Accepted":
+                                    circleColor = "#1E7F04";
+                                    break;
+
+                                case "Completed":
+                                    circleColor = "#ffffff";
+                                    break;
+
+                                case "Rejected":
+                                    circleColor = "#C80D0D";
+                                    break;
+
+                                case "Cancelled":
+                                    circleColor = "#000000";
+                                    break;
+                            }
+                        }
+                        
+                        <span style="color: @circleColor;">&#9679;</span>
+                         @Model.Status
+                     </td>
+                     <td>
+                         @Model.CreationDate
+                     </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+
+        <!-- Patient Information -->
+        <table class="table-responsive col-md-12">
+            <!-- Caption -->
+            <caption>Patient Information</caption>
+
+            <!-- Headers -->
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Patient Email</th>
+                    <th>Patient Gender</th>
+                    <th>Age</th>
+                    <th>Profile Picture</th>
+                </tr>
+            </thead>
+
+            <!-- Data -->
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.PatientFname @Model.PatientMname @Model.PatientLname
+                    </td>
+                    <td>
+                        @Model.PatientEmail
+                    </td>
+                    <td>
+                        @{
+                            string gender = "";
+                            string genderCircleColor = "#000000";
+                            switch (@Model.PatientGender)
+                            {
+                                case "M":
+                                    genderCircleColor = "#195BDF";
+                                    gender = "Male";
+                                    break;
+
+                                case "F":
+                                    genderCircleColor = "#D82FBF";
+                                    gender = "Female";
+                                    break;
+                            }
+                        }
+                        
+                        <span style="color: @genderCircleColor;">&#9679;</span>
+                        @gender
+                    </td>
+
+                    <td>
+                        @{
+                            int age = 0;
+                            age = DateTime.Now.Year - Model.PatientBoD.Year;
+                        } 
+                        @age
+                    </td>
+                    <td>
+                        <img src="~/images/profile-pictures/@Model.PatientProfilePicture" alt="Patient Profile Picture" width="64" height="64" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

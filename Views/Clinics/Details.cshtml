@@ -1,0 +1,72 @@
+﻿@model Health_Care_V1._2.Models.Clinic
+
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1 class="view-header">Details</h1>
+
+<div>
+    <h6>Clinic ID: @ViewBag.ClinicId</h6>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClinicName)
+        </dd>
+        <dt class = "col-sm-2">
+            Addresses
+        </dt>
+        <dd class = "col-sm-10">
+            <ol type="1" style="padding-left: 16px;">
+                @foreach (var address in ViewBag.Addresses)
+                {
+                    var addr = address.Country + ", " + address.City + ", " + address.Street;
+                    if (!(address.BuildingNumber is null))
+                    {
+                        addr += ", " + address.BuildingNumber;
+                    }
+                    
+                    <li>@addr</li>
+                }
+                @if(ViewBag.Addresses.Count == 0)
+                {
+                    <li>No Data</li>
+                }
+            </ol>
+        </dd>
+        <dt class = "col-sm-2">
+            Phone Numbers
+        </dt>
+        <dd class = "col-sm-10">
+            <ol type="1" style="padding-left: 16px;">
+                @foreach (var phoneNumber in ViewBag.PhoneNumbers)
+                {
+                    <li>@phoneNumber.PhoneNumber</li>
+                }
+                @if(ViewBag.PhoneNumbers.Count == 0)
+                {
+                    <li>No Data</li>
+                }
+            </ol>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AdditionDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AdditionDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicLogo)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="~/images/clinics-logo/@Model.ClinicLogo" width="128" height="128" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
