@@ -12,4 +12,5 @@ Thanks for Tahaluf Al Emarat Technical Solution and thier trainers especially:
 8) ENG.Lilas Al-Qawasmeh
 9) ENG.Munther Al Joudeh
 10) ENG.Mutaz Makhatreh
+
 Note: Health Care is the first project in training with Tahaluf Al Emarat Technology Solutions.
