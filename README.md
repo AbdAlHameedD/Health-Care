@@ -2,14 +2,14 @@ Overview: The system is an integrated program developed to save time and effort.
 
 Thanks for Tahaluf Al Emarat Technical Solution and thier trainers especially:
 
-ENG.Ayamn Taan
-ENG.Aseel Al-Sarhan
-ENG.Bayan Al-Hassoun
-ENG.Hadeel Alna'amne
-ENG.Raghad Al-Quran
-ENG.Dana Knaan
-ENG.Shoroq Sallam
-ENG.Lilas Al-Qawasmeh
-ENG.Munther Al Joudeh
-ENG.Mutaz Makhatreh
+1) ENG.Ayamn Taan
+2) ENG.Aseel Al-Sarhan
+3) ENG.Bayan Al-Hassoun
+4) ENG.Hadeel Alna'amne
+5) ENG.Raghad Al-Quran
+6) ENG.Dana Knaan
+7) ENG.Shoroq Sallam
+8) ENG.Lilas Al-Qawasmeh
+9) ENG.Munther Al Joudeh
+10) ENG.Mutaz Makhatreh
 Note: Health Care is the first project in training with Tahaluf Al Emarat Technology Solutions.
